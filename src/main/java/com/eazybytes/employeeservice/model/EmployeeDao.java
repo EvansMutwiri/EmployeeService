@@ -1,10 +1,10 @@
 package com.eazybytes.employeeservice.model;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Component
@@ -31,5 +31,23 @@ public class EmployeeDao {
                 .filter(employee -> employee.getEmployeeId()==employeeId)
                 .findAny()
                 .orElse(null);
+    }
+
+    public Employee addEmployee(Employee emp) {
+        emp.setEmployeeId(employeeList.size()+1);
+        employeeList.add(emp);
+        return emp;
+    }
+
+    public Employee deleteEmployee(Integer employeeId) {
+        Iterator<Employee> iterator = employeeList.iterator();
+        while (iterator.hasNext()){
+            Employee employee = iterator.next();
+            if(employeeId == employee.getEmployeeId()){
+                iterator.remove();
+                return employee;
+            }
+        }
+        return null;
     }
 }
