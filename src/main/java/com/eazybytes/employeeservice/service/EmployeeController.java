@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class EmployeeController {
     }
 
     @PostMapping("/employees/new")
-    public ResponseEntity<Object> addEmployee(@RequestBody Employee emp){
+    public ResponseEntity<Object> addEmployee(@Valid @RequestBody Employee emp){
 
         Employee newEmployee = service.addEmployee(emp);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()

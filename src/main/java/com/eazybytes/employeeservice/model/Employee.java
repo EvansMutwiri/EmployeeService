@@ -1,8 +1,15 @@
 package com.eazybytes.employeeservice.model;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 public class Employee {
     private int employeeId;
+    @Size(min = 3, max = 10, message = "Invalid name length") @NotBlank @NotEmpty
     private String name;
+    @Email(message = "Invalid email address") @NotBlank @NotEmpty
     private String email;
 
     public Employee(int employeeId, String name, String email) {

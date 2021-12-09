@@ -17,6 +17,7 @@ public class EmployeeDao {
         employeeList.add(new Employee(2, "Salang", "salang@eazybytes.com"));
         employeeList.add(new Employee(3, "Biggie", "big@eazybytes.com"));
         employeeList.add(new Employee(4, "Eazy", "smalls@eazybytes.com"));
+        employeeList.add(new Employee(5, "Michael", "george@bluth.com"));
     }
 
     /**

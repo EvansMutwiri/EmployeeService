@@ -1,7 +1,9 @@
 package com.eazybytes.employeeservice.exception_handler;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,5 +29,13 @@ public class EmployeeGlobalExceptionHandler  extends ResponseEntityExceptionHand
                 request.getDescription(false),
                 new Date());
         return new ResponseEntity<>(exception, HttpStatus.NOT_FOUND);
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        EmployeeExceptionResponse exception = new EmployeeExceptionResponse("Invalid input",
+                ex.getBindingResult().toString(),
+                new Date());
+        return new ResponseEntity<>(exception, HttpStatus.BAD_REQUEST);
     }
 }
