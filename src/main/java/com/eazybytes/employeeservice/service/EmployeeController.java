@@ -4,6 +4,10 @@ import com.eazybytes.employeeservice.exception_handler.EmployeeNotFound;
 import com.eazybytes.employeeservice.model.Employee;
 import com.eazybytes.employeeservice.model.EmployeeDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilderDsl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -24,11 +28,16 @@ public class EmployeeController {
     }
 
     @GetMapping(path ="/employees/{employeeId}")
-    public Employee getEmployeeById(@PathVariable int employeeId){
+    public EntityModel<Employee> getEmployeeById(@PathVariable int employeeId){
         Employee employee = service.getEmployeeById(employeeId);
         if(null == employee)
             throw new EmployeeNotFound("Employee Not Found");
-        return employee;
+        EntityModel<Employee> model = EntityModel.of(employee);
+
+        //link method
+        Link all_employees = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getAll()).withRel("all employees");
+        model.add(all_employees);
+        return model;
     }
 
     @PostMapping("/employees/new")
