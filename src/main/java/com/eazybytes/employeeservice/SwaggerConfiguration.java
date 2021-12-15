@@ -19,8 +19,8 @@ public class SwaggerConfiguration {
     public static final Contact SUPPORT_CONTACTS = new Contact("Evans","https://github.com/EvansMutwiri/","mutwirievansm@gmail.com");
     @Bean
     public Docket newApi() {
-        Set produce = new HashSet(Arrays.asList("application/json", "application/xml"));
-        Set consume = new HashSet(Arrays.asList("application/json", "application/xml"));
+        Set produce = new HashSet(Arrays.asList("application/json"));
+        Set consume = new HashSet(Arrays.asList("application/json"));
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .produces(produce)
